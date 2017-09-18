@@ -1,8 +1,10 @@
 <?php
 if(!defined('BASEPATH')) exit('No direct script access allowed');
 
+//After User login, to process some data
 class Logged_user extends CI_Model{
 
+	//----------------function to check whether user has filled/updated user_details form-----------------//
 	function getProfile_filled($email)
 	{
 		$query="SELECT name FROM user_reg WHERE email='$email'";
@@ -19,8 +21,9 @@ class Logged_user extends CI_Model{
 			return FALSE;
 		}
 	}
+//--------------function ends-----------------------------------//
 
-
+//-----------------------function to check whether email-ID already exists------------------//
 	function checkEmail_exist($email)
 	{
 		$query="SELECT * FROM user_reg WHERE email='$email'";
@@ -32,24 +35,6 @@ class Logged_user extends CI_Model{
 		else{
 			return FALSE;
 		}
-	}
-
-
-	function getRows($limit,$offset)
-	{
-		$query=$this->db->select('unique_id,name')
-		->from('user_reg')
-		->where($limit,$offset);
-		$result=$query->get()->result_array();
-		return $result;
-	}
-
-
-	function countRows()
-	{
-		$query="select count(*) as count from lfy_users";
-		$result=$this->db->query($query);
-		return $result->result_array();
 	}
 }
 ?>

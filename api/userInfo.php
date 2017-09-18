@@ -1,30 +1,26 @@
 <?php
+//.......................Insert user details API....................................//
+//------------------------------------------------------------------------------------------------//
+
+
 // Connect to database
-$conn=mysqli_connect('localhost','root','','rentoid');	
+$conn=mysqli_connect('localhost','root','','ijarline');	
 
 $request_method=$_SERVER["REQUEST_METHOD"];
 switch($request_method)
 {
 	case 'GET':
-	
-	$user_email=$_GET["user_email"];
-	make_offline($user_email);
 	break;
 
 	case 'POST':
-			// Insert user
-	insert_userDetails();
+	
+	insert_userDetails();			// Insert user details
 	break;
 
 	case 'PUT':
-			// Update user session make him offline after logout
-
 	break;
 
 	case 'DELETE':
-			// Delete Product
-	$product_id=intval($_GET["product_id"]);
-	delete_product($product_id);
 	break;
 
 	default:
@@ -32,13 +28,16 @@ switch($request_method)
 	header("HTTP/1.0 405 Method Not Allowed");
 	break;
 }
+
+//------------------function to insert user details -----------------------//
 function insert_userDetails()
-	{
-		global $conn;
+{
+	global $conn;
+	
+	extract($_POST);
+		$unique_id=base64_encode($user_email);//encoding email-Id of user to generate user's unique-id
 		
-		extract($_POST);
-		$unique_id=base64_encode($user_email);
-		
+		//check 'Stay in touch' checkbox checked or not
 		if (!isset($sign_Stay_check)) {
 			$sign_Stay_check=0;
 		}
@@ -46,7 +45,7 @@ function insert_userDetails()
 			$sign_Stay_check=1;
 		}
 
-		
+		//sql query to update user details 
 		$query="UPDATE user_reg SET unique_id='$unique_id', name='$firstname', surname='$lastname',suburb='$suburb', city='$city', postcode='$postcode', country='$country', state='$state', phone='$phone', stay_touched='$sign_Stay_check' WHERE email='$user_email'";
 		if(mysqli_query($conn, $query))
 		{
@@ -68,49 +67,7 @@ function insert_userDetails()
 		header('Content-Type: application/json');
 		echo json_encode($response);
 	}
-
-
-function get_products($product_id=0)
-{
-	global $conn;
-	$query="SELECT * FROM products";
-	if($product_id != 0)
-	{
-		$query.=" WHERE id=".$product_id." LIMIT 1";
-	}
-	$response=array();
-	$result=mysqli_query($conn, $query);
-	while($row=mysqli_fetch_array($result))
-	{
-		$response[]=$row;
-	}
-	header('Content-Type: application/json');
-	echo json_encode($response);
-}
-
-
-function make_offline($user_email){
-	global $conn;
-
-	$offline_query="UPDATE user_reg SET session_bool='0' WHERE email='$user_email'";
-
-	if(mysqli_query($conn, $offline_query))
-	{
-		$response=array(
-			'status' => 1,
-			'status_message' =>'User Logged Out Successfully.'
-			);
-	}
-	else
-	{
-		$response=array(
-			'status' => 0,
-			'status_message' =>'User Log-out Failed.'
-			);
-	}
-	header('Content-Type: application/json');
-	echo json_encode($response);
-}
+//------------------function to insert user details ends------------------------------//
 
 	// Close database conn
-mysqli_close($conn);
+	mysqli_close($conn);

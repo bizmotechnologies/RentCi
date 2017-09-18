@@ -33,7 +33,7 @@
 			echo $account_registered;
 		}
 		else{
-			echo "You need to login to your Rentoid account to continue.";			
+			echo "You need to login to your Ijarline account to continue.";			
 		
 		}
 		?>
@@ -42,6 +42,7 @@
 	</div>
 	<div class="col-lg-2"></div>
 </div>
+<!-- signup div -->
 <div class="w3-col l6 w3-padding">
 	<div class="w3-col l12 w3-padding w3-round-large w3-white w3-text-blue">
 		<p class="w3-center" style="font-weight: bold">Create account. It's <a href="#" class="w3-text-purple">FREE</a></p>
@@ -51,19 +52,19 @@
 			<tbody>
 				<tr>
 					<td align="right"><label class="w3-margin-bottom">Your email: </label></td>
-					<td align="left"><div class="w3-margin-bottom"><input name="sign_email" type="email" class="form-control" required></div></td>
+					<td align="left"><div class="w3-margin-bottom w3-margin-left"><input name="sign_email" type="email" class="form-control" required></div></td>
 				</tr>
 				<tr>
 					<td align="right"><label class="w3-margin-bottom">Your Password: </label></td>
-					<td align="left"><div class="w3-margin-bottom"><input name="sign_password" id="sign_password" type="password" maxlength="10"  class="form-control" required></div></td>
+					<td align="left"><div class="w3-margin-bottom w3-margin-left"><input name="sign_password" id="sign_password" type="password" maxlength="10"  class="form-control" required></div></td>
 				</tr>
 				<tr>
 					<td align="right"><label class="w3-margin-bottom">Verify Password: </label></td>
-					<td align="left"><div class="w3-margin-bottom"><input name="sign_password_c" id="sign_password_c" type="password" maxlength="10" class="form-control" required></div></td>						
+					<td align="left"><div class="w3-margin-bottom w3-margin-left"><input name="sign_password_c" id="sign_password_c" type="password" maxlength="10" class="form-control" required></div></td>						
 				</tr>
 				<tr><td align="center" colspan="2"><label id="message"></label></td></tr>
 				<tr>
-					<td align="center" colspan="2"><input type="checkbox" name="sign_check" value="1" required><label class=""> - I accept your <a href="http://www.rentoid.com/rules" target="_blank" class="w3-text-purple">rules</a> and <a href="http://www.rentoid.com/privacy" target="_blank" class="w3-text-purple">privacy policy</a>. </label></td>
+					<td align="center" colspan="2"><input type="checkbox" name="sign_check" value="1" required><label class=""> - I accept your <a href="" target="_blank" class="w3-text-purple">rules</a> and <a href="" target="_blank" class="w3-text-purple">privacy policy</a>. </label></td>
 				</tr>
 				<tr>
 					<td align="center" colspan="2">
@@ -75,6 +76,8 @@
 		<?php echo form_close()?>
 	</div>
 </div>
+<!-- signup div end -->
+<!-- login user div -->
 <div class="w3-col l6 w3-padding">
 	<div class="w3-col l12 w3-padding w3-round-large w3-white w3-text-blue">
 		<p class="w3-center" style="font-weight: bold">ALREADY A MEMBER ?</p>
@@ -84,11 +87,11 @@
 			<tbody>
 				<tr>
 					<td align="right"><label class="w3-margin-bottom">Your email: </label></td>
-					<td align="left"><div class="w3-margin-bottom"><input class="form-control" name="login_email" type="email" required></div></td>
+					<td align="left"><div class="w3-margin-bottom w3-margin-left"><input class="form-control" name="login_email" type="email" required></div></td>
 				</tr>
 				<tr>
 					<td align="right"><label class="w3-margin-bottom">Your Password: </label></td>
-					<td align="left"><div class="w3-margin-bottom"><input class="form-control" name="login_password" type="password" maxlength="10" required></div></td>
+					<td align="left"><div class="w3-margin-bottom w3-margin-left"><input class="form-control" name="login_password" type="password" maxlength="10" required></div></td>
 				</tr>
 				<tr>
 					<td align="center" colspan="2">
@@ -113,11 +116,13 @@
 	</div>
 
 </div>
-<!-- 		end................................
+<!-- 	login div end................................
 -->	
 
 <div class="col-lg-1 "></div>
 </div>
+
+<!-- script to check password and confirm passord field matches or not -->
 <script>
 	$('#sign_password_c').on('keyup', function () {
 		if ($('#sign_password').val() == $('#sign_password_c').val()) {
@@ -130,5 +135,7 @@
 		}
 	});
 </script>
+<!-- script end -->
+
 </body>
 </html>

@@ -4,7 +4,7 @@
 <html>
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Rent It</title>
+	<title>Ijarline-Home</title>
 	<link rel="stylesheet" href="<?php echo base_url(); ?>css/bootstrap/bootstrap.min.css">
 	<link rel="stylesheet" href="<?php echo base_url(); ?>css/font awesome/font-awesome.min.css">
 	<link rel="stylesheet" href="<?php echo base_url(); ?>css/font awesome/font-awesome.css">
@@ -14,6 +14,7 @@
 	<script type="text/javascript" src="<?php echo base_url(); ?>css/bootstrap/jquery-3.1.1.js"></script>
 	<script type="text/javascript" src="<?php echo base_url(); ?>css/bootstrap/bootstrap.min.js"></script>
 	<!-- <script type="text/javascript" src="assets/css/alert/jquery-confirm.js"></script> -->
+	
 </head>
 <body>
 
@@ -22,10 +23,10 @@
 <div class="w3-row w3-margin-top">
 	<div class="col-lg-1 "></div>
 
-	<div class="w3-col l10 w3-light-grey w3-round-large w3-padding">		
+	<div class="w3-col l10 w3-light-grey w3-round-large w3-padding">	
 		
+		<!-- Find item div -->
 		<div class="w3-col l8 w3-padding-small ">
-
 			<div class="w3-col l12 w3-padding w3-round-large w3-white w3-text-blue">
 				<span class="w3-center"><mark>THIS FEATURE IS UNDER CONSTRUCTION !!!</mark></span>
 				<h4>CHECK IT OUT! Over $101 million worth of cool stuff to rent </h4>
@@ -70,6 +71,9 @@
 				
 			</div>
 		</div>
+		<!-- end -->
+
+		<!-- Login div -->
 		<div class="w3-col l4 w3-padding-small">
 			<div class="w3-col l12 w3-padding w3-round-large w3-white w3-text-blue">
 				<h4>LOG IN</h4>
@@ -89,7 +93,7 @@
 				
 
 				<div class="col-lg-12 w3-small w3-margin-top">
-					<label>3 Reasons why rentoid rocks!</label>
+					<label>3 Reasons why ijarline rocks!</label>
 				<ol>
 					<li>Make cash renting your stuff </li>
 					<li>Save money renting temporary needs </li>
@@ -100,10 +104,11 @@
 					
 				</div>
 			</div>
+			<!-- end -->
+			
 		</div>
 
 		<div class="col-lg-1 "></div>
 	</div>
-
 </body>
 </html>

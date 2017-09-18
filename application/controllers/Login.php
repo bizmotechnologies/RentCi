@@ -1,7 +1,7 @@
 <?php 
 if(!defined('BASEPATH')) exit('No direct script access allowed');
 
-
+//Login and registeration page
 class Login extends CI_Controller
 {
 	public function __construct(){
@@ -23,17 +23,21 @@ class Login extends CI_Controller
 	public function login_user(){
 		$login_email= $this->input->post('login_email');
 		$login_password= $this->input->post('login_password');
-		$enc_password= base64_encode($login_password);
+
+		$enc_password= base64_encode($login_password);	//store encrypted password in db
+
+		//validation check
 		if($login_email=='' || $login_password=='')
 		{
 			redirect('login');
 			die();
 		}
+
 		//Connection establishment, processing of data and response from REST API
 		$data=array(
 			'email' =>$login_email,
 			'password' => $enc_password
-			);
+		);
 		$path=base_url();
 		$url = $path.'api/login.php';
 		$ch = curl_init($url);
@@ -62,10 +66,14 @@ class Login extends CI_Controller
 				'is_logged'     => $response['is_logged'],
 				'unique_id'=>$response['unique_id'],
 				'user_name'=>$response['user_name']
-				);
-			$this->session->set_userdata($session_data);
-			$unique_id=$response['unique_id'];
+			);
 
+			//start session of user if login success
+			$this->session->set_userdata($session_data);
+			$unique_id=$response['unique_id'];	//get unique_id of user
+
+			//if unique_id is created then user has inserted his all details
+			//and if not created, then redirect user to edit-details page
 			if($unique_id==''){									
 				redirect('edit_account');
 			}
@@ -90,23 +98,27 @@ class Login extends CI_Controller
 		$password= $this->input->post('sign_password');										
 		$emailID=$this->input->post('sign_email');
 
+		//validation check
 		if($emailID=='' || $password=='')
 		{
 			redirect('login');
 			die();
 		}
 
-		$enc_password= base64_encode($password);
+		$enc_password= base64_encode($password);	//encrypt password
 
+		//check email-Id is already registered 
 		$this->load->model('logged_user');
 		$checkEmail=$this->logged_user->checkEmail_exist($emailID);
 		
-		if($checkEmail){						
+
+		if($checkEmail){	
+
 			//Connection establishment, processing of data and response from REST API
 			$data=array(
 				'email' =>$emailID,
 				'password' => $enc_password
-				);
+			);
 			$path=base_url();
 			$url = $path.'api/register.php';
 			$ch = curl_init($url);
@@ -119,7 +131,7 @@ class Login extends CI_Controller
 		//API processing end
 
 
-		//if status returned is 0 then signin failed, if 1 then redirect to account page
+		//if status returned is 0 then registering failed, if 1 then redirect to signup page
 			if($response['status']==0){
 				$data['account_registered']=$response['status_message'];
 
@@ -134,7 +146,9 @@ class Login extends CI_Controller
 					'is_logged'     => $response['is_logged'],
 					'unique_id'=>'',
 					'user_name'=>''
-					);
+				);
+
+				//after registering login user and redirect to edit-details page
 				$this->session->set_userdata($session_data);
 				redirect('edit_account');
 
@@ -142,6 +156,8 @@ class Login extends CI_Controller
 		//if-else stmt end
 		}
 		else{
+
+			//if email-Id already regiterd then show error
 			$data['account_registered']="Email ID Already Registered. Login by same or use another Email-ID!!!";
 
 			$this->load->view('includes/header.php');
@@ -163,6 +179,8 @@ class Login extends CI_Controller
 	public function logout(){	
 		
 		$email_id=$this->session->userdata('email_id');
+
+		//Connection establishment, processing of data and response from REST API
 		$path=base_url();
 		$url = $path.'api/login.php?user_email='.$email_id;		
 		$ch = curl_init($url);
@@ -182,6 +200,7 @@ class Login extends CI_Controller
 			
 		}
 		else{
+			//if logout success then destroy session and unset session variables
 			$this->session->unset_userdata(array("email_id"=>"","status_message"=>"","is_logged"=>"","unique_id"=>"","user_name"=>""));
 			$this->session->sess_destroy();
 			redirect('login');
@@ -192,41 +211,6 @@ class Login extends CI_Controller
 // ---------------------function to logout user end---------------------
 //--------------------------------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------------------------------
-
-
-
-
-// ---------------------function to check new user account by email-id and password---------------------
-//--------------------------------------------------------------------------------------------------------
-//--------------------------------------------------------------------------------------------------------
-	public function check()
-	{
-		$this->load->library('form_validation');   #1
-		$this->form_validation->set_rules('email','Email ID','trim|required'); #2
-		$this->form_validation->set_rules('password','Password','trim|required');
-		if($this->form_validation->run()==FALSE)    #3
-		{
-			$this->load->view('includes/header.php');
-			$this->load->view('pages/member_signup.php');
-			$this->load->view('includes/footer.php');
-			
-		}
-
-		// $this->load->model('loginmodel');
-		// $userName=$this->input->post('username'); #4
-		// $password=$this->input->post('password');
-		// $userCount=$this->loginmodel->check($userName,$password); #5
-
-		// if($userCount[0]['count']>0)
-		// {
-		// 	echo "Login Successful";
-		// }
-		// else if ($userCount[0]['count']==0)
-		// {
-		// 	echo "Wrong User Name / Password";
-		// }
-	}// end of funcion check
-
 	
 }
 ?>

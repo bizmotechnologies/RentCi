@@ -1,5 +1,5 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');	?>
-
+<!-- User homepage -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -54,19 +54,24 @@
 					<a class="w3-button btn w3-blue w3-right w3-margin-bottom" href="list_item"><i class="fa fa-plus"></i> List New Items</a>
 					<hr>
 					
+					<!-- Show user's Ijarline items -->
 					<div class="w3-col l12">
 						<?php 
 						if(!isset($my_list)){
 							echo '<div class="w3-col l12 w3-center"><label class="w3-medium">Your Ijarline is still empty!!! </label></div>';
-							 }
-							else{
-								foreach ($my_list as $key) {
-									$pic=json_decode($key['item_pictures']);
+						}
+						else{
+							foreach ($my_list as $key) {
+									$pic=json_decode($key['item_pictures']);	//decode the image path from db
 
+									//give expiry date of item by calculating posted date + package_date
 									$expiry_period = strtotime("+".$key['expiry_period']." month", strtotime($key['posted_date']));
 									$expiry_date = date("d M Y", $expiry_period);
 
+									//expiry period is remaining days for expiry
 									$expiry_period=$key['posted_date']-date('Y-m-d');
+
+									//single item div
 									echo '<div class="w3-col l6" style="">
 									<div class=" w3-col l12 w3-padding-small">
 									<div class="w3-col l12 w3-padding-small well">
@@ -99,7 +104,7 @@
 							}
 							?>
 						</div>
-
+						<!-- item div end -->
 					</div>
 				</div>
 				<div class="w3-col l3 w3-padding-small">

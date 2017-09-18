@@ -1,9 +1,11 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');	?>
+
+<!-- edit account details page -->
 <!DOCTYPE html>
 <html>
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Be a Member</title>
+	<title>Edit Account</title>
 	<link rel="stylesheet" href="<?php echo base_url(); ?>css/bootstrap/bootstrap.min.css">
 	<link rel="stylesheet" href="<?php echo base_url(); ?>css/font awesome/font-awesome.min.css">
 	<link rel="stylesheet" href="<?php echo base_url(); ?>css/font awesome/font-awesome.css">
@@ -19,11 +21,12 @@
 	<div class="w3-row w3-margin-top">
 		<div class="col-lg-1 "></div>
 
-<?php 
-if(isset($account)){
-	foreach ($account as $details) {		
-$decrypt_password= base64_decode($details['password']);//Decrypts an encoded string. 
-?>
+		<?php
+//show values in input field if already have user details 
+		if(isset($account)){
+			foreach ($account as $details) {		
+	$decrypt_password= base64_decode($details['password']);//Decrypts fetched password. 
+	?>
 
 
 <!-- 		edit account deatils form...............................
@@ -61,6 +64,7 @@ $decrypt_password= base64_decode($details['password']);//Decrypts an encoded str
 							<td align="right"><label class="w3-margin-bottom">Country/Region: </label></td>
 							<td align="left"><div class="w3-margin-bottom w3-margin-left">
 								<select class="form-control" name="country" required>
+									<option value="saudi">Saudi Arabia</option>
 									<option value="saudi">Saudi Arabia</option>
 									<option value="ind">India</option>
 									<option value="aus">Australia</option>
@@ -101,15 +105,15 @@ $decrypt_password= base64_decode($details['password']);//Decrypts an encoded str
 					<tr>
 						<td align="right"><label class="w3-margin-bottom">Your Password: </label></td>
 						<td align="left"><div class="w3-margin-bottom w3-margin-left input-group">
-						<input class="form-control" placeholder="Enter Password" id="user_password" name="user_password" type="password" maxlength="10" value="<?php echo $decrypt_password; ?>" required>
-						<span class="input-group-btn"><a class="btn btn-default" onclick="show_pass(this);">Show</a></span>
+							<input class="form-control" placeholder="Enter Password" id="user_password" name="user_password" type="password" maxlength="10" value="<?php echo $decrypt_password; ?>" required>
+							<span class="input-group-btn"><a class="btn btn-default" onclick="show_pass(this);">Show</a></span>
 						</div></td>
 					</tr>
 					<tr>
 						<td align="right"><label class="w3-margin-bottom">Confirm Password: </label></td>
 						<td align="left"><div class="w3-margin-bottom w3-margin-left">
-						<input class="form-control input-group" placeholder="Re-enter your password" id="user_passwordConfirm" name="user_passwordConfirm" type="password" maxlength="10" required>
-						
+							<input class="form-control input-group" placeholder="Re-enter your password" id="user_passwordConfirm" name="user_passwordConfirm" type="password" maxlength="10" required>
+							
 						</div></td>
 					</tr>					
 					<tr><td align="center" colspan="2"><label id="message"></label></td></tr>
@@ -132,12 +136,14 @@ $decrypt_password= base64_decode($details['password']);//Decrypts an encoded str
 <!-- 		end................................
 -->	
 <?php 
-	}
-	
+}
+
 }
 ?>
 <div class="col-lg-1 "></div>
 </div>
+
+<!-- script to verify confirm and password field password matches -->
 <script>
 	$('#user_passwordConfirm').on('keyup', function () {
 		if ($('#user_password').val() == $('#user_passwordConfirm').val()) {
@@ -150,18 +156,23 @@ $decrypt_password= base64_decode($details['password']);//Decrypts an encoded str
 		}
 	});
 </script>
+<!--script end -->
+
+<!-- script script to hide or show password input field -->
 <script>
 	function show_pass(item){ 
-     if(item.innerText=='Show'){
-      item.innerText='Hide';
-      document.getElementById('user_password').type="text"; 
-    }else{
-     item.innerText='Show';
-     document.getElementById('user_password').type="password"; 
-    }
+		if(item.innerText=='Show'){
+			item.innerText='Hide';
+			document.getElementById('user_password').type="text"; 
+		}else{
+			item.innerText='Show';
+			document.getElementById('user_password').type="password"; 
+		}
 
 
-    } 
+	} 
 </script>
+<!-- script end -->
+
 </body>
 </html>

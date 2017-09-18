@@ -1,6 +1,10 @@
 <?php
+//.......................Login and logout user API....................................//
+//------------------------------------------------------------------------------------------------//
+
+
 // Connect to database
-$conn=mysqli_connect('localhost','root','','rentoid');	
+$conn=mysqli_connect('localhost','root','','ijarline');	
 
 $request_method=$_SERVER["REQUEST_METHOD"];
 switch($request_method)
@@ -8,23 +12,17 @@ switch($request_method)
 	case 'GET':
 	
 	$user_email=$_GET["user_email"];
-	make_offline($user_email);
+	make_offline($user_email);			//after user logs out change user's status (make it offline)
 	break;
 
-	case 'POST':
-			// Insert user
-	login();
+	case 'POST':			
+	login();				//login function
 	break;
 
-	case 'PUT':
-			// Update user session make him offline after logout
-
+	case 'PUT':			
 	break;
 
-	case 'DELETE':
-			// Delete Product
-	$product_id=intval($_GET["product_id"]);
-	delete_product($product_id);
+	case 'DELETE':			
 	break;
 
 	default:
@@ -33,6 +31,8 @@ switch($request_method)
 	break;
 }
 
+
+//----------------function to login user in its Ijarline----------------------------//
 function login()
 {
 	global $conn;
@@ -42,17 +42,23 @@ function login()
 	$unique_id='';
 	$user_name='';
 
+	//sql query to check login credentials
 	$query="SELECT * FROM user_reg WHERE email='$email' AND password='$password'";
 	$result=mysqli_query($conn, $query);
 	while($row = mysqli_fetch_array( $result))
 	{
-		$unique_id=$row['unique_id'];
+		$unique_id=$row['unique_id'];		//if true then get unique_id and username of user
 		$user_name=$row['name'];
 	}
+
+	//if credentials are true, their will be obviously only one record
 	if(mysqli_num_rows($result)==1)
 	{
+		//if logged in set user online
 		$login_sql="UPDATE user_reg SET session_bool='1' WHERE email='$email'";
 		mysqli_query($conn, $login_sql);
+
+		//response with values to be stored in sessions
 		$response=array(
 			'status' => 1,
 			'email_id' => $email,				
@@ -63,6 +69,7 @@ function login()
 	}
 	else
 	{
+		//login failed response
 		$response=array(
 			'status' => 0,
 			'status_message' =>'Sorry..Login credentials are incorrect!!!',
@@ -73,59 +80,15 @@ function login()
 	header('Content-Type: application/json');
 	echo json_encode($response);
 }
+//-----------function to log in user end---------------------------------//
 
 
-
-
-function get_products($product_id=0)
-{
-	global $conn;
-	$query="SELECT * FROM products";
-	if($product_id != 0)
-	{
-		$query.=" WHERE id=".$product_id." LIMIT 1";
-	}
-	$response=array();
-	$result=mysqli_query($conn, $query);
-	while($row=mysqli_fetch_array($result))
-	{
-		$response[]=$row;
-	}
-	header('Content-Type: application/json');
-	echo json_encode($response);
-}
-
-
-
-
-function delete_product($product_id)
-{
-	global $conn;
-	$query="DELETE FROM products WHERE id=".$product_id;
-	if(mysqli_query($conn, $query))
-	{
-		$response=array(
-			'status' => 1,
-			'status_message' =>'Product Deleted Successfully.'
-			);
-	}
-	else
-	{
-		$response=array(
-			'status' => 0,
-			'status_message' =>'Product Deletion Failed.'
-			);
-	}
-	header('Content-Type: application/json');
-	echo json_encode($response);
-}
-
-
+//------------------function to make user offline after logout-----------------------//
 function make_offline($user_email){
 	global $conn;
 
+	//sql query to make user online---------------------
 	$offline_query="UPDATE user_reg SET session_bool='0' WHERE email='$user_email'";
-
 	if(mysqli_query($conn, $offline_query))
 	{
 		$response=array(
@@ -143,34 +106,7 @@ function make_offline($user_email){
 	header('Content-Type: application/json');
 	echo json_encode($response);
 }
-
-
-function update_product($product_id)
-{
-	global $conn;
-	parse_str(file_get_contents("php://input"),$post_vars);
-	$product_name=$post_vars["product_name"];
-	$price=$post_vars["price"];
-	$quantity=$post_vars["quantity"];
-	$seller=$post_vars["seller"];
-	$query="UPDATE products SET product_name='{$product_name}', price={$price}, quantity={$quantity}, seller='{$seller}' WHERE id=".$product_id;
-	if(mysqli_query($conn, $query))
-	{
-		$response=array(
-			'status' => 1,
-			'status_message' =>'Product Updated Successfully.'
-			);
-	}
-	else
-	{
-		$response=array(
-			'status' => 0,
-			'status_message' =>'Product Updation Failed.'
-			);
-	}
-	header('Content-Type: application/json');
-	echo json_encode($response);
-}
+//------------------------logout function ends--------------------------//
 
 	// Close database conn
 mysqli_close($conn);

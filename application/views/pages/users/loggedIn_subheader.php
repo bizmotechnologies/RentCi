@@ -3,10 +3,6 @@ $emailID=$this->session->userdata('email_id');
 $is_logged=$this->session->userdata('is_logged');
 $unique_id=$this->session->userdata('unique_id');
 
-
-// if($is_logged==0){
-// 	redirect('login');
-// }
 ?>
 <!DOCTYPE html>
 <html>

@@ -1,5 +1,5 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');	?>
-
+<!-- Newly registerd and Submitted user details success page (Greeting the user) -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,24 +18,22 @@
 <body>
 
 
-<!-- middle page content...............................
--->
+<!-- middle page content-->
 <div class="w3-row w3-margin-top">
 	<div class="col-lg-1 "></div>
 
 	<div class="w3-col l10 w3-light-grey w3-round-large w3-padding">
-		<p><label class="w3-label">You're rentoid's newest member now,</label></p>
+		<p><label class="w3-label">You're Ijarline's newest member now,</label></p>
 		<p><label class="w3-xxlarge w3-text-purple">Thanks for joining,</label></p>
 		<p><label class="w3-large w3-text-purple">You can now list as many items as you want OR get started renting.</label></p>
 		<label class="w3-medium w3-text-purple">You can, </label>
-		<a class="w3-button btn w3-red w3-margin-bottom" href="list_item"><i class="fa fa-list"></i> List something straight away</a>
+		<a class="w3-button btn w3-red w3-margin-bottom" href="<?php echo base_url(); ?>list_item"><i class="fa fa-list"></i> List something straight away</a>
 		<label class="w3-medium w3-text-purple">OR</label>
 		<a class="w3-button btn w3-red w3-margin-bottom" href="find_item"><i class="fa fa-search"></i> Find an item to rent</a>
-
 	</div>
 
 	<div class="col-lg-1"></div>
 </div>
-
+<!-- end -->
 </body>
 </html>

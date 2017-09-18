@@ -1,7 +1,7 @@
 <?php 
 if(!defined('BASEPATH')) exit('No direct script access allowed');
 
-
+//My Ijarline page
 class List_item extends CI_Controller
 {
 	public function __construct(){
@@ -17,22 +17,27 @@ class List_item extends CI_Controller
 		$this->load->view('includes/footer.php');
 	}
 
+	//--------------function to find item by filter-----------------//
 	public function find(){
 		
 	}
+	//---------------fucntion to find item by filters end------------------//
 
+
+	//-----------------function to add new item------------------------//
 	public function addItem(){
 		$unique_id=$this->session->userdata('unique_id');
 		$user_email=base64_decode($unique_id);
 		
 		$this->load->model('user_details');
-		$ID=$this->user_details->getID($user_email);
+		$ID=$this->user_details->getID($user_email);	//get user_id by email
 
-		$image_data=array();
-		$pictures="";
+		$image_data=array();	//item_image array
+		$pictures="";	//string value containing paths of images to be stored in db 
+
 		if($ID){
 			if(!empty($_FILES['item_image']['name'])){
-				$filesCount = count($_FILES['item_image']['name']);
+				$filesCount = count($_FILES['item_image']['name']); 	//get count of uploaded images (max.4)
 
 				for($i = 0; $i < $filesCount; $i++){
 					$_FILES['userFile']['name'] = $_POST['item_name'].'_catID_'.$_FILES['item_image']['name'][$i];
@@ -41,35 +46,36 @@ class List_item extends CI_Controller
 					$_FILES['userFile']['error'] = $_FILES['item_image']['error'][$i];
 					$_FILES['userFile']['size'] = $_FILES['item_image']['size'][$i];
 
-					$uploadPath ='uploads/';
+					$uploadPath ='uploads/';	//upload images in upload/ folder
 					$config['upload_path'] = $uploadPath;
-					$config['allowed_types'] = 'gif|jpg|png';
-					
+					$config['allowed_types'] = 'gif|jpg|png';	//allowed types of images 					
 
-					$this->load->library('upload', $config);
+					$this->load->library('upload', $config);	//load upload file config.
 					$this->upload->initialize($config);
+
 					if($this->upload->do_upload('userFile')){
 						$fileData = $this->upload->data();
 						$uploadData[$i]['file_name'] = $fileData['file_name'];
 						$uploadData[$i]['created'] = date("Y-m-d H:i:s");
 						$uploadData[$i]['modified'] = date("Y-m-d H:i:s");
 					}
-                //print_r($_FILES['userFile']);
-					$image_data[]=base_url()."uploads/".$fileData['file_name'];
+                
+					$image_data[]=base_url()."uploads/".$fileData['file_name'];		//append path of images uploaded in array one by one
 
 				}
-				$pictures=json_encode($image_data);
+				$pictures=json_encode($image_data);		//save bunch of image path as json array to store in db
 
 			}
 
-			//Connection establishment, processing of data and response from REST API
-			$data=$_POST;
-			
-			$posted_on=date("Y-m-d");
+			$data=$_POST;			
+			$posted_on=date("Y-m-d");	//current date in format
+
+			//---------add more fields in data() array--------//
 			$data['user_id']=$ID;
 			$data['posted_on']=$posted_on;
 			$data['pictures']=$pictures;
 
+			//Connection establishment, processing of data and response from REST API
 			$path=base_url();
 			$url = $path.'api/Item_info.php';
 			$ch = curl_init($url);
@@ -80,6 +86,7 @@ class List_item extends CI_Controller
 			curl_close($ch);
 			$response=json_decode($response_json, true);			
 			
+			//if status is 0 return back and show error message
 			if($response['status']==0){
 				$data['list_error']=$response['status_message'];
 
@@ -90,6 +97,7 @@ class List_item extends CI_Controller
 
 			}
 			else{	
+				//insert new item success and show My Ijarline
 				redirect('user_home');
 				
 			}
@@ -97,7 +105,7 @@ class List_item extends CI_Controller
 		}
 		
 	}
-
+//-------------------------function to add new item ends--------------------------//
 	
 }
 ?>

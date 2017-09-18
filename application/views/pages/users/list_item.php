@@ -1,5 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');	?>
 
+<!-- List item page -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,22 +32,27 @@
 	<div class="col-lg-1 "></div>
 
 	<div class="w3-col l10 w3-light-grey w3-round-large w3-padding">
-		
+		<!-- why to list div -->
 		<div class="w3-col l4 w3-padding-small">
 			<div class="w3-col l12 w3-padding-small w3-round-large w3-white w3-center">
 				<a class="btn w3-text-blue w3-large" data-toggle="modal" data-target="#why_list">WHY LIST ITEMS ?</a>
 			</div>
 		</div>
+		<!-- end -->
+		<!-- how it works div -->
 		<div class="w3-col l4 w3-padding-small">
 			<div class="w3-col l12 w3-padding-small w3-round-large w3-white w3-center">
 				<a class="btn w3-text-blue w3-large" data-toggle="modal" data-target="#how_works">HOW IT WORKS ?</a>
 			</div>
 		</div>
+		<!-- end -->
+		<!-- listing tips div -->
 		<div class="w3-col l4 w3-padding-small">
 			<div class="w3-col l12 w3-padding-small w3-round-large w3-white w3-center">
 				<a class="btn w3-text-blue w3-large" data-toggle="modal" data-target="#rent_tips">LISTING ITEM TIPS</a>
 			</div>
 		</div>
+		<!-- end -->
 	</div>
 
 	<!--Why List Items Modal -->
@@ -78,7 +84,7 @@
 	</div>
 	<!-- 	Why list items modal end	-->
 
-	<!--Why List Items Modal -->
+	<!--How it works Modal -->
 	<div id="how_works" class="modal fade" role="dialog">
 		<div class="modal-dialog">
 
@@ -102,9 +108,9 @@
 
 		</div>
 	</div>
-	<!-- 	Why list items modal end	-->	
+	<!-- 	How it works modal end	-->	
 
-	<!--Why List Items Modal -->
+	<!--Listing tips Modal -->
 	<div id="rent_tips" class="modal fade" role="dialog">
 		<div class="modal-dialog">
 
@@ -117,7 +123,7 @@
 				<div class="modal-body">
 					<p>
 						<label class="w3-text-grey">
-							We recommend the following when listing an item on rentoid for rent.
+							We recommend the following when listing an item on ijarline for rent.
 						</label><br>
 						<label class="w3-text-grey w3-small">Price :</label><br>
 						<span class="w3-text-grey w3-small">
@@ -143,7 +149,7 @@
 
 		</div>
 	</div>
-	<!-- 	Why list items modal end	-->	
+	<!-- 	Listing tips modal end	-->	
 
 	<div class="col-lg-1 "></div>
 </div>
@@ -176,10 +182,10 @@
 									<td align="left"><div class="w3-margin-bottom w3-margin-left">
 										<select name="item_category" class="form-control">
 											<option>Art-Gallery</option>
-										<option >Electronics</option>
-										<option >Games</option>
-										<option >Medical</option>
-										<option >Party</option>
+											<option >Electronics</option>
+											<option >Games</option>
+											<option >Medical</option>
+											<option >Party</option>
 										</select></div>
 									</td>
 								</tr>
@@ -291,6 +297,8 @@
 </div>
 <!-- next middle content end..................................
 -->
+
+<!-- script to add more image upload input field on button click -->
 <script>
 	$(document).ready(function(){
 		$("#more_optionBtn").click(function(){
@@ -314,7 +322,7 @@
         }
         else
         {
-        	alert('You Reached the limits')
+        	alert('You Reached the limits')		//alert when added more than 4 input fields
         }
     });
 
@@ -323,5 +331,7 @@
 		})
 	});
 </script>
+<!-- script ends -->
+
 </body>
 </html>

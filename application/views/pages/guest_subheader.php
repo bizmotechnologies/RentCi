@@ -3,7 +3,6 @@
 <html>
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Be a Member</title>
 	<link rel="stylesheet" href="<?php echo base_url(); ?>css/bootstrap/bootstrap.min.css">
 	<link rel="stylesheet" href="<?php echo base_url(); ?>css/font awesome/font-awesome.min.css">
 	<link rel="stylesheet" href="<?php echo base_url(); ?>css/font awesome/font-awesome.css">
@@ -15,6 +14,7 @@
 	<!-- <script type="text/javascript" src="assets/css/alert/jquery-confirm.js"></script> -->
 </head>
 <body>
+	<!-- Subheader for guest visitors -->
 	<div class="">
 		<div class="col-lg-1 "></div>
 		<div class="w3-col l10 w3-light-grey w3-margin-bottom" style="margin-top: 2px">
