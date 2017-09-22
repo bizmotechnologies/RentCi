@@ -1,4 +1,7 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');	?>
+<?php defined('BASEPATH') OR exit('No direct script access allowed');	
+error_reporting(E_ERROR | E_PARSE);
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,11 +27,11 @@
     <span class="w3-xlarge "><b>IJARLINE <span class="w3-small">everywhere...</span></b></span>
   </div>
   <div class="w3-bar-block">
-    <a href="" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-th-large fa-fw w3-margin-right"></i>DASHBOARD</a> 
-    <a href="" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-user fa-fw w3-margin-right"></i>LIST ITEMS</a> 
-    <a href="" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-user fa-fw w3-margin-right"></i>SETTINGS</a> 
-    <a href="" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-user fa-fw w3-margin-right"></i>CONTENT WRITING</a> 
-    <a href="" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-envelope fa-fw w3-margin-right"></i>CONTACT</a>
+    <a href="<?php echo base_url(); ?>admin/admin_dash" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-th-large fa-fw w3-margin-right"></i>DASHBOARD</a> 
+    <a href="<?php echo base_url(); ?>admin/admin_manageRules" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-user fa-fw w3-margin-right"></i>MANAGE RULES</a> 
+    <a href="<?php echo base_url(); ?>admin/admin_generalSettings" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-user fa-fw w3-margin-right"></i>GENERAL SETTINGS</a> 
+     
+    <a href="" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-envelope fa-fw w3-margin-right"></i>LOGOUT</a>
   </div>
   <div class="w3-panel w3-large">
     <i class="fa fa-facebook-official w3-hover-opacity"></i>

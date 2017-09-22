@@ -2,7 +2,7 @@
 if(!defined('BASEPATH')) exit('No direct script access allowed');
 
 
-class Admin_dash extends CI_Controller
+class Admin_manageRules extends CI_Controller
 {
 	public function __construct(){
 		parent::__construct();	
@@ -13,10 +13,10 @@ class Admin_dash extends CI_Controller
 
 	public function index(){
 		$this->load->model('admin_settings');
-		$data['all_rentList']=$this->admin_settings->getAllRent_list();
+		$data['all_rules']=$this->admin_settings->getAllRules();
 		
 		$this->load->view('pages/admin/admin_navigation.php');
-		$this->load->view('pages/admin/admin_dash.php',$data);
+		$this->load->view('pages/admin/admin_manageRules.php',$data);
 	}
 
 	public function addRule(){
@@ -96,7 +96,7 @@ class Admin_dash extends CI_Controller
 			</script>';	
 
 			$this->load->view('pages/admin/admin_navigation.php');
-			$this->load->view('pages/admin/admin_manageSettings.php',$data);
+			$this->load->view('pages/admin/admin_manageRules.php',$data);
 
 			
 		}
@@ -111,7 +111,7 @@ class Admin_dash extends CI_Controller
 				});
 			}, 1000);
 			</script>';	
-			redirect('admin/admin_manageSettings');
+			redirect('admin/admin_manageRules');
 			
 		}
 	}
@@ -124,7 +124,7 @@ class Admin_dash extends CI_Controller
 		$this->load->model('admin_settings');
 		$data['rules_update']=$this->admin_settings->editRules($editrule_id,$editrule_title,$editrule_content);
 
-		redirect('admin/admin_manageSettings');		
+		redirect('admin/admin_manageRules');		
 	}
 
 }

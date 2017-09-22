@@ -48,6 +48,7 @@ class Edit_account extends CI_Controller
 
 			//Connection establishment, processing of data and response from REST API 
 			$data=$_POST;	//send data by POST 		
+			$data['user_id']=$ID;		
 			$path=base_url();
 			$url = $path.'api/userInfo.php';	
 			$ch = curl_init($url);

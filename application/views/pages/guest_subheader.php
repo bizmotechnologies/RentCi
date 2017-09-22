@@ -19,7 +19,23 @@
 		<div class="col-lg-1 "></div>
 		<div class="w3-col l10 w3-light-grey w3-margin-bottom" style="margin-top: 2px">
 		<div class="w3-left w3-margin-left">
-				<label class="w3-tiny w3-margin-right"><a class="btn anchor_btn" href="<?php echo base_url(); ?>"><b>Home</b></a></label>
+				<label class="w3-tiny w3-margin-right">
+					<a class="btn anchor_btn" href="<?php echo base_url(); ?>"><b>Home</b></a>
+				</label>
+
+				<label class="w3-tiny w3-margin-right">
+					<a class="btn anchor_btn" href="<?php echo base_url(); ?>about"><b>About</b></a>
+				</label>
+
+				<label class="w3-tiny w3-margin-right">
+					<a class="btn anchor_btn" href="<?php echo base_url(); ?>rules"><b>Rules</b></a>
+				</label>
+
+				<label class="w3-tiny w3-margin-right">
+					<a class="btn anchor_btn" href="<?php echo base_url(); ?>find"><b>Find</b></a>
+				</label>
+
+				
 		</div>
 		<div class="w3-right w3-margin-right">
 			<label class="w3-right w3-tiny "><a class="btn anchor_btn" href="<?php echo base_url(); ?>login"><b>Signup Or Login</b></a></label>

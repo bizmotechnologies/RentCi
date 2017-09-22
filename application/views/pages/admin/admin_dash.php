@@ -1,75 +1,92 @@
-
+<title>Dashboard</title>
 <!-- !PAGE CONTENT! -->
-<div class="w3-main" style="margin-left:320px">
+<div class="w3-main w3-padding" style="margin-left:300px">
 
-     <!-- Header -->
-  <header id="" class="w3-margin">    
-    <span class="w3-xlarge w3-hover-text-grey"><i class="fa fa-sitemap"></i> Ijarline Item Category</span>
-    
+  <!-- ITEM CATEGORY SETTINGS  -->
+  <!-- Header -->
+  <header id="" class="w3-margin-top">    
+    <span class="w3-xlarge w3-hover-text-grey"><i class="fa fa-list"></i> Rent List</span>
+
   </header>
-
-    <div class="w3-col l12 well w3-margin-top">
-      <div class="w3-col l6 " style="padding: 5px">
-        <span class="w3-hover-text-grey w3-margin-left"><i class="fa fa-plus"></i> Add New Category</span>
-        <form id="add_newCategory" method="post">
-        <div class="w3-margin-bottom">
-          <div class="col-lg-4 ">
-              <button type="submit" class="btn w3-button w3-margin-top w3-blue w3-margin-left w3-center" id="addCategory_btn"><i></i> Add Category</button>
-            </div>
-            <div class="col-lg-8">
-              <input type="text" name="new_cat_name" id="new_cat_name" placeholder="Enter New Category..." autocomplete="off" class="w3-margin-left w3-margin-top w3-input">
-            </div>
-        </div>
-        </form>  
-      </div>
-      <div class="w3-col l6 w3-border-left" style="padding: 5px">
-         
-        <span class="w3-hover-text-grey w3-margin-left"><i class="fa fa-sort-alpha-asc"></i> All Categories</span>
-        <div class="w3-margin-bottom">
-          <div class="col-lg-8">
-              <select name="cat_name" id="cat_name" class="w3-margin-left w3-margin-top w3-select">
-                <option>Art & leisure</option>
-                <option>Art & leisure</option>
-                <option>Art & leisure</option>
-                <option>Art & leisure</option>
-                <option>Art & leisure</option>
-              </select>
-            </div>
-          <div class="col-lg-4 ">
-              <button class="btn w3-button w3-margin-top w3-blue w3-margin-left"><i class="fa fa-pencil"></i> </button>
-              <button class="btn w3-button w3-margin-top w3-blue w3-margin-left"><i class="fa fa-remove"></i> </button>
-            </div>
+  
+  <div class="w3-col l12 well w3-margin-top">
+    <table class="table table-striped table-responsive w3-small">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Item Name</th>
+          <th>Total Views</th>
+          <th>Posted on</th>
+          <th>Expires on</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php 
+          if (isset($all_rentList)) {
             
-        </div>
-            
-        
-      </div>
-    </div>
+            $rentList_array=json_decode($all_rentList,TRUE);
+            $color="w3-green";
+            $text="w3-text-green"; 
+            $live="Is Live";
+            foreach ($rentList_array as $key) {
+              $expiry_period = strtotime("+".$key['expiry_period']." month", strtotime($key['posted_date']));
+              $expiry_date = date("d M Y", $expiry_period);
+             $posted_date = date_format(date_create($key['posted_date']),'d M Y');
+              if($key['isLive']==0)
+              { 
+                 $color="w3-red";
+                 $text="w3-text-red"; 
+                 $live="Is Expired";
+              }
 
-<!-- End page content -->
-</div>
+              echo '
+              <tr>
+              <td><div title="'.$live.'" class="w3-circle w3-tiny '.$color.' '.$text.' w3-center fa fa-check" style="margin:0:padding:2px"></div></td>
+              <td>'.$key['item_name'].'</td>
+              <td>'.$key['total_views'].'</td>
+              <td>'.$posted_date.'</td>
+              <td>'.$expiry_date.'</td>
+              </tr>';
+            }
+          }
+        ?>
+        <tr></tr>
+      </tbody>
+    </table>
+  </div>
 
-<!-- here is the script that will do the ajax. It is triggered when the form is submitted -->
-<script>
+  <div class="w3-col l12"></div>
+
+
+  <!-- here is the script that will do the ajax. It is triggered when the form is submitted -->
+  <script>
    $(function(){
-       $("#add_newCategory").submit(function(){
-         dataString = $("#add_newCategory").serialize();
+     $("#addRule_form").submit(function(){
+       dataString = $("#addRule_form").serialize();
 
-         $.ajax({
-           type: "POST",
-           url: "<?php echo base_url(); ?>admin/admin_dash/addCategory",
-           data: dataString,
+       $.ajax({
+         type: "POST",
+         url: "<?php echo base_url(); ?>admin/admin_manageSettings/addRule",
+         data: dataString,
            return: false,  //stop the actual form post !important!
 
            success: function(data)
            {
-               alert(data);
+
+             $("#rule_msg").html(data);
+             setTimeout(function() {
+              window.location.reload();
+            }, 1200);
            }
 
          });
 
          return false;  //stop the actual form post !important!
 
-      });
+       });
    });
-</script>
+ </script>
+
+ <!-- ITEM CATEGORY SETTINGS END -->
+ <!-- End page content -->
+</div>

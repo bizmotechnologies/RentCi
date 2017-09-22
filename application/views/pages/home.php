@@ -4,7 +4,7 @@
 <html>
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Ijarline-Home</title>
+	<title>Home-Ijarline</title>
 	<link rel="stylesheet" href="<?php echo base_url(); ?>css/bootstrap/bootstrap.min.css">
 	<link rel="stylesheet" href="<?php echo base_url(); ?>css/font awesome/font-awesome.min.css">
 	<link rel="stylesheet" href="<?php echo base_url(); ?>css/font awesome/font-awesome.css">
@@ -35,36 +35,51 @@
 				<br>
 				<div class="col-lg-8">
 					<table class="w3-text-small" width="90%">
-						<tbody>
-							<tr>
-								<td align="left"><label class="w3-margin-bottom">What: </label></td>
-								<td align="left"><div class="w3-margin-bottom w3-margin-left"><input name="user_email" placeholder="Enter item name, category" type="email" class="form-control" required></div></td>						
-							</tr>
-							<tr>
-								<td align="left"><label class="w3-margin-bottom">Where: </label></td>
-								<td align="left"><div class="w3-margin-bottom w3-margin-left"><input class="form-control" placeholder="Enter suburb, city, country" id="user_password" name="user_password" type="password" maxlength="10" required></div></td>
-							</tr>
-							<tr>
-								<td align="left"><label class="w3-margin-bottom">Category: </label></td>
-								<td align="left"><div class="w3-margin-bottom w3-margin-left">
-									<select class="form-control" name="find_category" required>
-										<option value="mah">Art-Gallery</option>
-										<option value="del">Electronics</option>
-										<option value="kar">Games</option>
-										<option value="guj">Medical</option>
-										<option value="jk">Party</option>
+						<form action="<?php echo base_url(); ?>search_results" method="GET">
+							<tbody>
+								<tr>
+									<td align="left"><label class="w3-margin-bottom">What: </label></td>
+									<td align="left"><div class="w3-margin-bottom w3-margin-left"><input name="find_what" placeholder="Enter item name" type="text" class="form-control"></div></td>						
+								</tr>
+								<tr>
+									<td align="left"><label class="w3-margin-bottom">Where: </label></td>
+									<td align="left"><div class="w3-margin-bottom w3-margin-left"><input class="form-control" placeholder="Enter suburb OR state" id="find_where" name="find_where" type="text"></div></td>
+								</tr>
+								<tr>
+									<td align="left"><label class="w3-margin-bottom">Category: </label></td>
+									<td align="left"><div class="w3-margin-bottom w3-margin-left">
+										<select class="form-control" name="find_category">
+											<option value="all" selected>ALL</option>
+											<?php
+											if (isset($all_category)) {
+												$cat_array=json_decode($all_category,TRUE);
+
+												foreach ($cat_array as $key) {
+													$cat_id=$key['cat_id'];
+													$cat_name=$key['cat_name'];
+
+													echo '<option value="'.$cat_name.'">'.strtoupper($cat_name).'</option>';
+												}
+											}
+											else{
+												echo '<option disabled>No Categories Added</option>';
+											} 
+
+											?>
+										</select>
 									</select>
 								</div></td>
 							</tr>
 							<tr>
 								<td></td>
 								<td align="left">
-									<button class="btn w3-blue w3-text-white w3-margin-left w3-padding-left w3-padding-right" name="edit_btn" id="edit_btn" type="submit">
+									<button class="btn w3-blue w3-text-white w3-margin-left w3-padding-left w3-padding-right" name="find_btn" id="find_btn" type="submit">
 										<i class="fa fa-play"></i> Find item
 									</button>
 								</td>
 							</tr>
 						</tbody>
+					</form>
 					</table>
 				</div>
 				<div class="col-lg-4"></div>
@@ -94,21 +109,21 @@
 
 				<div class="col-lg-12 w3-small w3-margin-top">
 					<label>3 Reasons why ijarline rocks!</label>
-				<ol>
-					<li>Make cash renting your stuff </li>
-					<li>Save money renting temporary needs </li>
-					<li>Save the environment</li>
-				</ol>
+					<ol>
+						<li class="w3-text-grey">Make cash renting your stuff </li>
+						<li class="w3-text-grey">Save money renting temporary needs </li>
+						<li class="w3-text-grey">Save the <a class="w3-text-blue" href="<?php echo base_url(); ?>environment">environment</a></li>
+					</ol>
 				</div>
 				
-					
-				</div>
-			</div>
-			<!-- end -->
-			
-		</div>
 
-		<div class="col-lg-1 "></div>
+			</div>
+		</div>
+		<!-- end -->
+
 	</div>
+
+	<div class="col-lg-1 "></div>
+</div>
 </body>
 </html>

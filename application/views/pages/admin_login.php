@@ -27,8 +27,8 @@
 
     <!-- Login Form -->
     <form>
-      <input type="text" id="login" class="fadeIn second" name="admin_username" placeholder="enter your email-ID">
-      <input type="text" id="password" class="fadeIn third" name="admin_password" placeholder="enter your password">
+      <input type="text" id="login" class="fadeIn form-control" name="admin_username" placeholder="enter your email-ID" required>
+      <input type="password" id="password" class="fadeIn form-control" name="admin_password" placeholder="enter your password" required>
       <input type="submit" class="fadeIn fourth" value="Log In">
     </form>
 

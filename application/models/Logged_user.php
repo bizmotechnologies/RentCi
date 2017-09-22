@@ -26,14 +26,15 @@ class Logged_user extends CI_Model{
 //-----------------------function to check whether email-ID already exists------------------//
 	function checkEmail_exist($email)
 	{
-		$query="SELECT * FROM user_reg WHERE email='$email'";
-		$count=$this->db->affected_rows($query);
+		$query = null;
+		$query = $this->db->get_where('user_reg', array(//making selection
+            'email' => $email
+        ));		
 		
-		if($count==0){						
-			return TRUE;
-		}
-		else{
-			return FALSE;
+		if ($query->num_rows() > 0) {
+			return 0;			
+		} else {
+			return 1;			
 		}
 	}
 }

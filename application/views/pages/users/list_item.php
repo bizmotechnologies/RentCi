@@ -181,11 +181,23 @@
 									<td align="left"><label class="w3-margin-bottom">Category: </label></td>
 									<td align="left"><div class="w3-margin-bottom w3-margin-left">
 										<select name="item_category" class="form-control">
-											<option>Art-Gallery</option>
-											<option >Electronics</option>
-											<option >Games</option>
-											<option >Medical</option>
-											<option >Party</option>
+											
+											<?php
+											if (isset($all_category)) {
+												$cat_array=json_decode($all_category,TRUE);
+
+												foreach ($cat_array as $key) {
+													$cat_id=$key['cat_id'];
+													$cat_name=$key['cat_name'];
+
+													echo '<option value="'.$cat_name.'">'.strtoupper($cat_name).'</option>';
+												}
+											}
+											else{
+												echo '<option disabled>No Categories Added</option>';
+											} 
+
+											?>
 										</select></div>
 									</td>
 								</tr>
@@ -271,29 +283,92 @@
 					<div class="col-lg-8 col-lg-offset-3 w3-margin-top">
 						<table class="w3-small">
 							<tbody>
-								<tr>
-									<td align="right"><div class="w3-margin-bottom"><input name="payment_package" type="radio" value="one_time" required></div></td>
-									<td align="left"><label class="w3-margin-bottom w3-margin-left">$5.00- this item only <a class="btn">(Expensive ?)</a></label></td>									
-								</tr>
-								<tr>
-									<td align="right"><div class="w3-margin-bottom"><input name="payment_package" type="radio" value="one_year" required></div></td>
-									<td align="left"><label class="w3-margin-bottom w3-margin-left">$59.00- Unlimited listings for 1 year.</label></td>									
-								</tr>						
-							</tbody>
-						</table>	
-					</div>					
-				</div>
-				<button class="btn w3-blue w3-text-white w3-right w3-margin w3-padding-left w3-padding-right" name="list_btn" id="list_btn" type="submit" >
-					<i class="fa fa-chevron-circle-down"></i> List item
-				</button>
-				<?php echo form_close()?>
+								<?php
+								if (isset($all_packages)) {
+									$pack_array=json_decode($all_packages,TRUE);       
 
+									foreach ($pack_array as $key) {
+										$pack_id=$key['pack_id'];
+										$pack_name=$key['pack_name'];
+										$pack_cost=$key['pack_cost'];
+										$pack_details=json_decode($key['pack_details'],TRUE);
+										$pack_period="";
+										$pack_code=$key['pack_code'];
+										$pack_validity=$key['pack_validity'];
+										$activation_status=$key['activation_status'];
+
+										switch ($key['pack_period']) {
+											case 'M':
+											$pack_period='month';
+											break;
+
+											case 'Y':
+											$pack_period='year';
+											break;
+
+											default:
+
+											break;
+										}
+
+										echo '
+										<tr>
+										<td align="right"><div class="w3-margin-bottom"><input name="payment_package" type="radio" value="'.$pack_code.'" required></div></td>
+										<td align="left"><label class="w3-margin-bottom w3-margin-left"><span class="w3-medium">ر.س</span>'.$pack_cost.' - '.$pack_name.' pack </label></td>
+										<td class="w3-margin-left"><a class="btn w3-white w3-left w3-padding-small w3-medium" data-toggle="modal" data-target="#whatIs_'.$pack_id.'" title="What is '.$pack_name.' pack?" style="padding:0"><i class="fa fa-question-circle"></i></a></td>									
+										</tr>
+										
+
+										<!-- Modal -->
+										<div id="whatIs_'.$pack_id.'" class="modal fade " role="dialog">
+										<div class="modal-dialog modal-sm">
+										<!-- Modal content-->
+										<div class="modal-content col-lg-8 col-lg-offset-2">
+										<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal">&times;</button>
+										<br>
+										<span class="modal-title w3-center w3-xlarge w3-text-blue"><strong> '.$pack_name.'</strong>
+										<span class="w3-small w3-text-blue"> pack</span>
+										</div>
+										<div class="modal-body w3-small w3-center">																	
+										<label class="w3-xlarge"><strong>'.$pack_cost.'ر.س<br><span class="w3-small">(for <i>'.$pack_validity.' '.$pack_period.'</i>)</strong></span></label>
+										<br>
+										<br>
+										<label>Benefits:</label>';      
+										foreach ($pack_details as $pack) {
+											echo '
+											<p>- '.$pack.'</p>
+											';
+											
+										}
+										echo '
+										</div>
+										</div>
+										</div>
+										</div>'; 
+									}
+								}
+								else{
+									echo '<strong>--------No Package Added--------</strong>';
+								} 
+
+								?>
+							</div>													
+						</tbody>
+					</table>	
+				</div>					
 			</div>
-		</div>
+			<button class="btn w3-blue w3-text-white w3-right w3-margin w3-padding-left w3-padding-right" name="list_btn" id="list_btn" type="submit" >
+				<i class="fa fa-chevron-circle-down"></i> List item
+			</button>
+			<?php echo form_close()?>
 
+		</div>
 	</div>
 
-	<div class="col-lg-1 "></div>
+</div>
+
+<div class="col-lg-1 "></div>
 </div>
 <!-- next middle content end..................................
 -->

@@ -40,6 +40,7 @@ function insert_newItem()
 		global $conn;		
 		extract($_POST);		
 
+		
 		//set expiry period for item as per package or membership (currently hardcoded)
 		$expiry_period="";		
 		switch ($payment_package) {
@@ -56,7 +57,7 @@ function insert_newItem()
 		}
 
 		//sql query to insert posted item details in db
-		$query="INSERT INTO list_items SET user_id='$user_id', cat_id='$item_category', item_name='$item_name', item_description='$item_description',item_pictures='$pictures', daily_rate='$daily_price', weekly_rate='$weekly_price', weekend_rate='$weekend_price', monthly_rate='$monthly_price', bond_rate='$bond_price', extra_option='$more_options', membership_package='$payment_package', posted_date='$posted_on', closed_date='', expiry_period='$expiry_period', isLive='1'";
+		$query="INSERT INTO list_items SET user_id='$user_id', user_name='$user_name', user_addr='$user_addr', cat_name='$item_category', item_name='$item_name', item_description='$item_description',item_pictures='$pictures', daily_rate='$daily_price', weekly_rate='$weekly_price', weekend_rate='$weekend_price', monthly_rate='$monthly_price', bond_rate='$bond_price', extra_option='$more_options', membership_package='$payment_package', posted_date='$posted_on', closed_date='', expiry_period='$expiry_period', isLive='1'";
 		if(mysqli_query($conn, $query))
 		{
 			//insertion success

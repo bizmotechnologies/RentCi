@@ -76,18 +76,22 @@
 									<div class=" w3-col l12 w3-padding-small">
 									<div class="w3-col l12 w3-padding-small well">
 									<div title="Is live" class="w3-circle w3-tiny w3-text-green w3-green w3-right fa fa-check" style="margin:0:padding:2px"></div>
-									<div class="w3-col l5 w3-margin-top" >
+									<div class="w3-col l5 s5 w3-margin-top" >
+
 									';
 									foreach ($pic as $img) {							
-										echo '<img class="img img-thumbnail" src="'.$img.'" width="100%" height="100%">';		
+										echo '
+										<div class="w3-grey rent_pic" style="background-image:url(\''.$img.'\')">
+
+										</div>';		
 										break;					
 									}
 
 									echo '
-									<figcaption class="w3-tiny" style="margin-top:5px"><i>Category: '.$key['cat_id'].'</i></figcaption>
+									<figcaption class="w3-tiny" style="margin-top:5px"><i>'.$key['cat_name'].'</i></figcaption>
 									</div>
 
-									<div class="col-lg-7 w3-padding-left" style="margin-top:5px">
+									<div class="col-lg-7 w3-col s7 w3-padding-left" style="margin-top:5px">
 									<label class="w3-small" title="Go to '.$key['item_name'].' page"><a class="btn anchor_btn" href=""><b>'.$key['item_name'].'</b></a></label>
 									<hr style="padding:0;margin:0">
 									<span class="w3-tiny">Total Views:</span <label class="w3-small">&nbsp;23</label><br>

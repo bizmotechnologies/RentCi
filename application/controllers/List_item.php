@@ -11,31 +11,40 @@ class List_item extends CI_Controller
 	}
 
 	public function index(){
+		$this->load->model('admin_settings');
+		$data['all_category']=$this->admin_settings->getAllCategory();
+
+		$this->load->model('admin_settings');
+		$data['all_packages']=$this->admin_settings->getAllPackages();
+
 		$this->load->view('includes/header.php');
 		$this->load->view('pages/users/loggedIn_subheader.php');
-		$this->load->view('pages/users/list_item.php');
+		$this->load->view('pages/users/list_item.php',$data);
 		$this->load->view('includes/footer.php');
 	}
 
-	//--------------function to find item by filter-----------------//
-	public function find(){
-		
-	}
-	//---------------fucntion to find item by filters end------------------//
-
-
+	
 	//-----------------function to add new item------------------------//
 	public function addItem(){
 		$unique_id=$this->session->userdata('unique_id');
 		$user_email=base64_decode($unique_id);
-		
+		$addr="";
+		$uname="";
+		$this->load->model('user_details');
+		$acct_data=$this->user_details->getAccount_details($user_email);	//get user_id by email
+
 		$this->load->model('user_details');
 		$ID=$this->user_details->getID($user_email);	//get user_id by email
 
+		foreach ($acct_data as $key) {
+			$addr=$key['suburb'].', '.$key['city'].', '.$key['postcode'].', '.$key['state'].', '.$key['country'];
+			$uname=$key['name'].' '.$key['surname'];			
+		}
+		
 		$image_data=array();	//item_image array
 		$pictures="";	//string value containing paths of images to be stored in db 
 
-		if($ID){
+		if($acct_data){
 			if(!empty($_FILES['item_image']['name'])){
 				$filesCount = count($_FILES['item_image']['name']); 	//get count of uploaded images (max.4)
 
@@ -72,6 +81,8 @@ class List_item extends CI_Controller
 
 			//---------add more fields in data() array--------//
 			$data['user_id']=$ID;
+			$data['user_name']=$uname;
+			$data['user_addr']=$addr;
 			$data['posted_on']=$posted_on;
 			$data['pictures']=$pictures;
 

@@ -30,3 +30,17 @@
     left: 0;
 }
 
+.rent_pic{
+	width: 100px;
+	height: 100px;
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+.itemDetail_pic{
+	width: 200px;
+	height: 200px;
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+}

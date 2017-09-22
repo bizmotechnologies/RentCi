@@ -36,7 +36,10 @@ function insert_userDetails()
 	
 	extract($_POST);
 		$unique_id=base64_encode($user_email);//encoding email-Id of user to generate user's unique-id
-		
+
+		$addr=$suburb.', '.$city.', '.$postcode.', '.$state.', '.$country;
+		$uname=$firstname.' '.$lastname;
+
 		//check 'Stay in touch' checkbox checked or not
 		if (!isset($sign_Stay_check)) {
 			$sign_Stay_check=0;
@@ -49,6 +52,8 @@ function insert_userDetails()
 		$query="UPDATE user_reg SET unique_id='$unique_id', name='$firstname', surname='$lastname',suburb='$suburb', city='$city', postcode='$postcode', country='$country', state='$state', phone='$phone', stay_touched='$sign_Stay_check' WHERE email='$user_email'";
 		if(mysqli_query($conn, $query))
 		{
+			$updateItem_query="UPDATE list_items SET user_name='$uname', user_addr='$addr' WHERE user_id='$user_id'";
+			mysqli_query($conn, $updateItem_query);
 			$response=array(
 				'status' => 1,
 				'status_message' =>'User Account Details updated Successfully.',	

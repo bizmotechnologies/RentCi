@@ -28,6 +28,16 @@ class User_details extends CI_Model{
 		return $user_id;
 	}
 	//----------------fucntion ends--------------------------//
+
+	//-----------function to fetch user details by id----------------//
+	function getAccount_details_id($user_id)
+	{
+		$this->db->where('user_id',$user_id);
+		$query=$this->db->get('user_reg');
+		$result=$query->result_array(); 		             
+		return $result;
+	}
+	//--------------function ends-----------------//
 	
 }
 ?>

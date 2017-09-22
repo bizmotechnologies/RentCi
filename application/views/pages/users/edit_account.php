@@ -1,4 +1,7 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');	?>
+<?php defined('BASEPATH') OR exit('No direct script access allowed');	
+error_reporting(E_ERROR | E_PARSE);
+
+?>
 
 <!-- edit account details page -->
 <!DOCTYPE html>
@@ -64,12 +67,11 @@
 							<td align="right"><label class="w3-margin-bottom">Country/Region: </label></td>
 							<td align="left"><div class="w3-margin-bottom w3-margin-left">
 								<select class="form-control" name="country" required>
-									<option value="saudi">Saudi Arabia</option>
-									<option value="saudi">Saudi Arabia</option>
-									<option value="ind">India</option>
-									<option value="aus">Australia</option>
-									<option value="usa">USA</option>
-									<option value="eng">England</option>
+									<option value="saudi" <?php if($details['country']=="saudi"){echo "selected"; } ?> >Saudi Arabia</option>
+									<option value="ind" <?php if($details['country']=="ind"){echo "selected"; } ?> >India</option>
+									<option value="aus" <?php if($details['country']=="aus"){echo "selected"; } ?> >Australia</option>
+									<option value="usa" <?php if($details['country']=="usa"){echo "selected"; } ?> >USA</option>
+									<option value="eng" <?php if($details['country']=="eng"){echo "selected"; } ?> >England</option>
 								</select>
 							</div>
 						</td>
@@ -78,11 +80,11 @@
 						<td align="right"><label class="w3-margin-bottom">State/Territory: </label></td>
 						<td align="left"><div class="w3-margin-bottom w3-margin-left">
 							<select class="form-control" name="state" required>
-								<option value="mah">Maharashtra</option>
-								<option value="del">Delhi</option>
-								<option value="kar">Karnataka</option>
-								<option value="guj">Gujrat</option>
-								<option value="jk">Jammu & Kashmir</option>
+								<option value="mah" <?php if($details['state']=="mah"){echo "selected"; } ?>>Maharashtra</option>
+								<option value="del" <?php if($details['state']=="del"){echo "selected"; } ?>>Delhi</option>
+								<option value="kar" <?php if($details['state']=="kar"){echo "selected"; } ?>>Karnataka</option>
+								<option value="guj" <?php if($details['state']=="guj"){echo "selected"; } ?>>Gujrat</option>
+								<option value="jk" <?php if($details['state']=="jk"){echo "selected"; } ?>>Jammu & Kashmir</option>
 							</select>
 						</div></td>						
 					</tr>					
